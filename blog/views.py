@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-
+from django.contrib import messages
 
 # Create your views here.
 from django.http import HttpResponse
@@ -46,3 +46,12 @@ class PostUpdateView(UpdateView):
 	template_name = 'post/post_form.html'
 	fields = ('body_text', 'pub_date', )
 	success_url = reverse_lazy('posts_list')
+
+class PostDeleteView(DeleteView):
+	model = Post
+	template_name = 'post/post_confirm_delete.html'
+	success_url = reverse_lazy('posts_list')
+	success_message = 'Post excluído com sucesso.'
+	def delete(self, request, *args, **kwargs):
+		messages.success(self.request, self.success_message)
+		return super(PostDeleteView, self).delete(request, *args, **kwargs)

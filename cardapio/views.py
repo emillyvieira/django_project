@@ -3,8 +3,9 @@ from django.template.response import TemplateResponse
 
 from cardapio.models import Loja
 
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 # Create your views here.
 class LojaUpdateView(UpdateView):
@@ -20,6 +21,14 @@ class LojaCreateView(CreateView):
 	fields = ('nome', 'pedido_minimo', )
 	success_url = reverse_lazy('lojas_list')
 
+class LojaDeleteView(DeleteView):
+	model = Loja
+	template_name = 'cardapio/loja_confirm_delete.html'
+	success_url = reverse_lazy('lojas_list')
+	success_message = 'Loja excluída com sucesso.'
+	def delete(self, request, *args, **kwargs):
+		messages.success(self.request, self.success_message)
+		return super(LojaDeleteView, self).delete(request, *args, **kwargs)
 
 def lojas(request):
     todas_lojas = Loja.objects.all()

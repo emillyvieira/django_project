@@ -13,7 +13,7 @@
     {% for loja in lojas %}
     <article>
         <p>
-            {{ loja.nome }} - <a href="/loja/{{ loja.id }}">Ver loja</a> | <a href="{% url 'loja_edit' pk=loja.id %}" class="link-secondary">Editar</a>
+            {{ loja.nome }} - <a href="/loja/{{ loja.id }}">Ver loja</a> | <a href="{% url 'loja_edit' pk=loja.id %}" class="link-secondary">Editar</a> | <a href="{% url 'loja_delete' pk=loja.id %}" class="link-secondary">Excluir</a>                
         </p>
     </article>
     {% endfor %}
