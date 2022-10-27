@@ -17,6 +17,7 @@
     {% for post in posts_list %}
     <article>
         <h2>Em: {{ post.pub_date|date:"d / m / Y" }}</h2>
+        <span>Categoria: {{ post.categoria }}</span>
         <p>{{ post.body_text }}</p>
         <a href="{% url 'post_edit' pk=post.id %}" class="link-secondary">Editar</a> | <a href="{% url 'post_delete' pk=post.id %}" class="link-secondary">Excluir</a>
     </article>

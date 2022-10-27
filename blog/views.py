@@ -3,6 +3,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
+from blog.forms import PostModelForm
 
 # Create your views here.
 from django.http import HttpResponse
@@ -38,14 +39,15 @@ class PostDetailView(DetailView):
 class PostCreateView(CreateView):
 	model = Post
 	template_name = 'post/create.html'
-	fields = ('body_text', 'pub_date', )
 	success_url = reverse_lazy('posts_list')
+	form_class = PostModelForm
+
 
 class PostUpdateView(UpdateView):
 	model = Post
 	template_name = 'post/post_form.html'
-	fields = ('body_text', 'pub_date', )
 	success_url = reverse_lazy('posts_list')
+	form_class = PostModelForm
 
 class PostDeleteView(DeleteView):
 	model = Post
